@@ -17,7 +17,7 @@ O sistema é composto por uma rede de sensores **IoT**, instalados em pontos cr�
 
 Como resultado, a infraestrutura disponibiliza informações que serão consumidas por um aplicativo **mobile**, permitindo que moradores consultem em tempo real as regiões afetadas por alagamentos, além de um painel web destinado a agentes públicos para visualização e análise histórica dos dados.
 
-No escopo desta entrega, foi realizada a containerização completa da API e do banco de dados, com deploy automatizado em uma **VM Linux na Azure**, criação de rede personalizada entre os containers, gerenciamento via terminal e uso de boas práticas com variáveis de ambiente e persistência de dados — formando a base sólida para o funcionamento e escalabilidade do sistema Alaga Menos.
+No escopo desta entrega, foi realizada a containerização completa da API e do banco de dados, com deploy automatizado em uma **VM Linux na Azure**, criação de rede personalizada entre os containers, gerenciamento via terminal e uso de boas práticas com variáveis de ambiente e persistência de dados — formando a base sólida para o funcionamento e escalabilidade do sistema **Alaga Menos**.
 
 A aplicação contempla:
 

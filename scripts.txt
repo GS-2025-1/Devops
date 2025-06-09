@@ -1,0 +1,112 @@
+- Criacao VM Via CLI --------------------------- 
+
+az login
+
+az group create -l eastus -n rg-gs
+
+az vm create --resource-group rg-gs --name vm-gs --image Canonical:ubuntu-24_04-lts:minimal:24.04.202505020 --size Standard_B2s --admin-username admin_fiap --admin-password admin_fiap@123
+
+
+- Liberar Portas Necessarias --------------------- 
+
+az network nsg rule create --resource-group rg-gs --nsg-name vm-gsNSG --name port_5000 --protocol tcp --priority 1010 --destination-port-range 5000 --access Allow --direction Inbound
+
+az network nsg rule create --resource-group rg-gs --nsg-name vm-gsNSG --name port_1521 --protocol tcp --priority 1020 --destination-port-range 1521 --access Allow --direction Inbound
+
+- Se conectar a Maquina e utilziar os containers - 
+
+ssh admin_fiap@<IP_PÚBLICO_DA_VM>
+
+Instale o Docker com os comandos:
+sudo apt update
+
+sudo apt install docker.io -y
+
+Dando permissao ao usaurio fiap no docker
+
+sudo usermod -aG docker $USER
+
+exit
+
+E Conectese de novo
+
+ssh admin_fiap@<IP_PÚBLICO_DA_VM>
+
+E conect-se no docker 
+
+docker login -u julioccr
+
+- Puxar os containers para dentro da maquina virtul e rodar o banco ---------------------------------------------------- 
+
+docker network create gs-network
+
+docker pull julioccr/oracle_gs:v1.0
+
+docker pull julioccr/gs_api:v1.0
+
+docker run -d --name oracle_gs --network gs-network -p 1521:1521 -e ORACLE_PASSWORD=Fiap12345 -v oracle_data:/opt/oracle/oradata julioccr/oracle_gs:v1.0
+
+- Apos rodar o banco realize suas configuracoes, criacoes de tabelas e populacoes de dados -----------------------------------------------------------------
+
+Criar o usuário de aplicação (FIAP) e dar as permissões
+👉 Você se conectou com o usuário SYSTEM (ou SYS) na PDB XEPDB1.
+
+👉 Primeiro, conectar corretamente:
+
+ALTER SESSION SET CONTAINER = XEPDB1;
+
+👉 Dar permissões para o usuário:
+
+GRANT CONNECT, RESOURCE, CREATE SESSION, CREATE TABLE, CREATE VIEW, CREATE SEQUENCE TO FIAP;
+
+
+👉 (Opcional — você também pode dar unlimited tablespace):
+
+
+ALTER USER FIAP QUOTA UNLIMITED ON USERS;
+
+👉 Conectar no SQL Developer com:
+
+| Campo                | Valor              |
+| -------------------- | ------------------ |
+| Usuário              | FIAP               |
+| Senha                | Fiap12345          |
+| Hostname             | <IP_PÚBLICO_DA_VM> |
+| Porta                | 1521               |
+| Nome do Serviço (\*) | XEPDB1             |
+
+👉 ⚠️ Não usar SID — sempre usar Nome do Serviço (Service Name): XEPDB1
+
+posteriormente voce pode criar as tabelas e executar os inserts
+
+- Rodar o container da Api e acessalo ---------------------------------------------------------------------------
+
+docker run -d --name gs_api --network gs-network -p 5000:80 -e ASPNETCORE_ENVIRONMENT=Development julioccr/gs_api:v1.0
+
+no navegador se conectar com http://<IP PUBLICO DA VM>:5000 
+
+e a api ja vai estar funcionando e conectada com o banco
+
+- Comandos para mostrar os containers e excluilos ------------------------------------------------------------------
+
+docker ps -a
+
+docker stop gs_api oracle_gs
+
+docker ps -a
+
+docker rm gs_api oracle_gs
+
+docker ps -a
+
+clear
+
+history
+
+
+
+
+
+
+
+

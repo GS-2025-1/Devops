@@ -1,0 +1,26 @@
+admin_fiap@vm-gs:~$ history
+    1  sudo apt update
+    2  sudo apt install docker.io -y
+    3  sudo usermod -aG docker $USER
+    4  exit
+    5  docker -u julioccr
+    6  sudo docker -u julioccr
+    7  docker login -u julioccr
+    8  docker pull julioccr/oracle_gs:v1.0
+    9  docker pull julioccr/gs_api:v1.0
+   10  docker network create gs-network
+   11  docker run -d --name oracle_gs --network gs-network -p 1521:1521 -e ORACLE_PASSWORD=Fiap12345 -v oracle_data:/opt/oracle/oradata julioccr/oracle_gs:v1.0
+   12  docker run -d --name gs_api --network gs-network -p 5000:80 -e ASPNETCORE_ENVIRONMENT=Development julioccr/gs_api:v1.0
+   13  docker ps -a
+   14  docker stop gs_api oracle_gs
+   15  docker ps -a
+   16  docker rm gs_api oracle_gs
+   17  docker ps -a
+   18  docker images
+   19  clear
+   20  history
+   21  docker run -d --name oracle_gs --network gs-network -p 1521:1521 -e ORACLE_PASSWORD=Fiap12345 -v oracle_data:/opt/oracle/oradata julioccr/oracle_gs:v1.0
+   22  docker run -d --name gs_api --network gs-network -p 5000:80 -e ASPNETCORE_ENVIRONMENT=Development julioccr/gs_api:v1.0
+   23  docker ps -a
+   24  clear
+   25  history

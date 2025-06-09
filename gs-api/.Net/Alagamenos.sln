@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alagamenos", "Alagamenos\Alagamenos.csproj", "{601F1A4D-25C2-4D01-9842-47927A05C411}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{601F1A4D-25C2-4D01-9842-47927A05C411}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{601F1A4D-25C2-4D01-9842-47927A05C411}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{601F1A4D-25C2-4D01-9842-47927A05C411}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{601F1A4D-25C2-4D01-9842-47927A05C411}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,6 @@
+@Alagamenos_HostAddress = http://localhost:5197
+
+GET {{Alagamenos_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

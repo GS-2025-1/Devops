@@ -1,0 +1,4 @@
+-- Criar o usuário FIAP com tablespace padrão e quota
+CREATE USER fiap IDENTIFIED BY Fiap12345 DEFAULT TABLESPACE users TEMPORARY TABLESPACE temp;
+GRANT CONNECT, RESOURCE TO fiap;
+ALTER USER fiap QUOTA UNLIMITED ON users;
